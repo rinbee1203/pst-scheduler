@@ -1,8 +1,11 @@
 // src/components/ScheduleList.jsx
+import { useState } from 'react';
 import { formatTime } from '../pages/MainApp.jsx';
+
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-export default function ScheduleList({ schedules, subjects, teachers, currentUser, isAdmin, weekHolidays }) {
-  const [filter, setFilter] = (function(){ const {useState}=require('react'); return useState(isAdmin ? 'all' : currentUser.id); })();
+
+export default function ScheduleList({ ... }) {
+  const [filter, setFilter] = useState(isAdmin ? 'all' : currentUser.id);
   const filtered = filter === 'all' ? schedules : schedules.filter(s => s.teacherId === filter);
   return (
     <div className="fade-up">
