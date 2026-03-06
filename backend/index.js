@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 4000;
 
 // ── Middleware ────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    'https://pst-scheduler.vercel.app',
+    'https://pst-scheduler-2yn4ex9c6-rinbee1203s-projects.vercel.app',
+    'http://localhost:5173',
+  ],
   credentials: true,
 }));
 app.use(express.json());
