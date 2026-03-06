@@ -10,11 +10,25 @@ const PORT = process.env.PORT || 4000;
 
 // ── Middleware ────────────────────────────────────────────────
 app.use(cors({
-  origin: [
-    'https://pst-scheduler.vercel.app',
-    'https://pst-scheduler-2yn4ex9c6-rinbee1203s-projects.vercel.app',
-    'http://localhost:5173',
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    
+    // Allow any vercel.app URL for your project + localhost
+    const allowed = [
+      'https://pst-scheduler.vercel.app',
+      'http://localhost:5173',
+    ];
+    
+    if (
+      allowed.includes(origin) ||
+      origin.endsWith('.vercel.app')
+    ) {
+      return callback(null, true);
+    }
+    
+    return callback(new Error('CORS blocked: ' + origin));
+  },
   credentials: true,
 }));
 app.use(express.json());
