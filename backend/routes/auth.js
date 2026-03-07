@@ -136,4 +136,35 @@ router.get('/me', requireAuth, async (req, res) => {
   }
 });
 
+// POST /api/auth/create-admin
+router.post('/create-admin', async (req, res) => {
+  const { full_name, email, password, employee_id, secret } = req.body;
+
+  if (secret !== process.env.ADMIN_SECRET) {
+    return res.status(403).json({ error: 'Invalid secret key.' });
+  }
+
+  if (!full_name || !email || !password || !employee_id) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
+
+  try {
+    const existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
+    if (existing.rows.length > 0) {
+      return res.status(409).json({ error: 'Email already exists.' });
+    }
+
+    const password_hash = await bcrypt.hash(password, 10);
+    const result = await db.query(
+      `INSERT INTO users (full_name, email, password_hash, employee_id, role, approved, color)
+       VALUES ($1, $2, $3, $4, 'admin', TRUE, '#ef4444')
+       RETURNING id, full_name, email, role`,
+      [full_name, email, password_hash, employee_id]
+    );
+    res.json({ message: 'Admin created successfully!', user: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
