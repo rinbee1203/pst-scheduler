@@ -280,6 +280,35 @@ export default function MainApp() {
             </button>
           ))}
 
+          {/* Grade & Section panel in sidebar */}
+          {sections.length > 0 && (
+            <div style={{ margin: '8px 2px 0', padding: '10px 10px', background: 'rgba(255,255,255,0.6)', borderRadius: 12, border: '1px solid rgba(184,134,11,0.18)' }}>
+              <div style={{ fontSize: 8, fontWeight: 700, color: '#b8860b', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 7 }}>Grade & Section</div>
+              <div onClick={() => setSelectedSection(null)}
+                style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '5px 8px', borderRadius: 7, cursor: 'pointer', marginBottom: 3, transition: 'all 0.15s', background: !selectedSection ? 'rgba(184,134,11,0.1)' : 'transparent', border: `1px solid ${!selectedSection ? 'rgba(184,134,11,0.22)' : 'transparent'}` }}>
+                <span style={{ fontSize: 11 }}>📋</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: !selectedSection ? '#92400e' : '#7a6f63' }}>All Sections</span>
+              </div>
+              {['Grade 7','Grade 8','Grade 9','Grade 10','Grade 11','Grade 12'].map(grade => {
+                const gradeSections = sections.filter(s => s.grade === grade);
+                if (!gradeSections.length) return null;
+                return (
+                  <div key={grade}>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#b8860b', letterSpacing: '0.08em', padding: '6px 8px 3px', textTransform: 'uppercase' }}>{grade}</div>
+                    {gradeSections.map(sec => (
+                      <div key={sec.id}
+                        onClick={() => { setSelectedSection(selectedSection === sec.id ? null : sec.id); if (view !== 'schedule') setView('schedule'); }}
+                        style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '5px 8px', borderRadius: 7, cursor: 'pointer', marginBottom: 2, transition: 'all 0.15s', background: selectedSection === sec.id ? 'rgba(77,124,15,0.1)' : 'transparent', border: `1px solid ${selectedSection === sec.id ? 'rgba(77,124,15,0.22)' : 'transparent'}` }}>
+                        <div style={{ width: 5, height: 5, borderRadius: '50%', background: selectedSection === sec.id ? '#4d7c0f' : '#c9b99a', flexShrink: 0 }} />
+                        <span style={{ fontSize: 11, fontWeight: 600, color: selectedSection === sec.id ? '#4d7c0f' : '#5a4f3f', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sec.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           <div style={{ flex: 1 }} />
           <PSTClock />
 
