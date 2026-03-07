@@ -7,12 +7,7 @@ const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
 const pool = new Pool({
-  host: 'crossover.proxy.rlwy.net',
-  port: 28569,
-  user: 'postgres',
-  password: 'DNahkkYnaMcFrByDrocsgZARqfERYkoq',
-  database: 'railway',
-  ssl: { rejectUnauthorized: false },
+  connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
