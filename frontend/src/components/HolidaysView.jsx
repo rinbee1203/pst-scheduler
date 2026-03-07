@@ -6,8 +6,11 @@ export default function HolidaysView({ holidays }) {
       <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>Schedule slots on these dates are automatically blocked.</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
         {holidays.map(h => {
-          const dateStr = typeof h.date === 'string' ? h.date : h.date?.toISOString?.().split('T')[0];
-          const d = new Date(dateStr + 'T00:00:00');
+          // Extract just the date part (first 10 chars) — handles both
+          // "2026-01-01" and "2026-01-01T00:00:00.000Z" formats
+          const dateStr = (h.date || '').toString().slice(0, 10);
+          const [year, month, day] = dateStr.split('-').map(Number);
+          const d = new Date(year, month - 1, day);
           const dow = d.toLocaleDateString('en-PH', { weekday: 'long' });
           const fmt = d.toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' });
           return (
