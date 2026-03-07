@@ -281,7 +281,21 @@ export default function AuthScreen() {
             {/* Header */}
             <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 32 }}>
-                <div className="seal">🏫</div>
+                <div className="seal">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 36 36">
+                    <rect x="4" y="7" width="28" height="24" rx="3.5" fill="rgba(255,255,255,0.25)"/>
+                    <rect x="4" y="7" width="28" height="8" rx="3.5" fill="rgba(255,255,255,0.15)"/>
+                    <rect x="4" y="12" width="28" height="3" fill="rgba(255,255,255,0.15)"/>
+                    <rect x="12" y="3" width="3" height="7" rx="1.5" fill="#f5f3ef"/>
+                    <rect x="21" y="3" width="3" height="7" rx="1.5" fill="#f5f3ef"/>
+                    <rect x="9" y="20" width="4" height="4" rx="1" fill="#f5f3ef" opacity="0.9"/>
+                    <rect x="16" y="20" width="4" height="4" rx="1" fill="#f5f3ef" opacity="0.9"/>
+                    <rect x="23" y="20" width="4" height="4" rx="1" fill="#f5f3ef" opacity="0.5"/>
+                    <rect x="9" y="27" width="4" height="4" rx="1" fill="#f5f3ef" opacity="0.9"/>
+                    <rect x="16" y="27" width="4" height="4" rx="1" fill="#b8860b" opacity="0.9"/>
+                    <rect x="23" y="27" width="4" height="4" rx="1" fill="#f5f3ef" opacity="0.9"/>
+                  </svg>
+                </div>
                 <div>
                   <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, color: '#1a1612', lineHeight: 1.2 }}>PST Scheduler</div>
                   <div style={{ fontSize: 10, color: '#b8860b', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 2 }}>DepEd · PH Standard Time</div>
@@ -301,14 +315,14 @@ export default function AuthScreen() {
               {/* Feature pills */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
                 {[
-                  { icon: '🗓', label: 'Schedule Grid' },
-                  { icon: '⚡', label: 'Conflict Detection' },
-                  { icon: '🇵🇭', label: 'PH Holidays' },
-                  { icon: '👥', label: 'Role Management' },
-                  { icon: '📋', label: 'Form 7 Ready' },
+                  { icon: <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><rect x="7" y="14" width="3" height="3" rx="0.5" fill="currentColor" stroke="none"/><rect x="14" y="14" width="3" height="3" rx="0.5" fill="currentColor" stroke="none"/></svg>, label: 'Schedule Grid' },
+                  { icon: <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, label: 'Conflict Detection' },
+                  { icon: <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>, label: 'PH Holidays' },
+                  { icon: <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>, label: 'Role Management' },
+                  { icon: <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>, label: 'Form 7 Ready' },
                 ].map(f => (
-                  <span key={f.label} className="feature-pill">
-                    <span>{f.icon}</span>{f.label}
+                  <span key={f.label} className="feature-pill" style={{ color: '#5a4f3f' }}>
+                    <span style={{ color: '#b8860b', display: 'flex' }}>{f.icon}</span>{f.label}
                   </span>
                 ))}
               </div>
